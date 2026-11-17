@@ -1,0 +1,128 @@
+@use "variables" as *;
+// ─── Reset base ───────────────────────────
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'Nunito Sans', Georgia, sans-serif;
+  font-size: 18px;
+  color: $text-color;
+  margin: 0;
+  padding: 0;
+}
+
+// ─── Wrapper ──────────────────────────────
+.wrapper {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// ─── Liste ────────────────────────────────
+ul, ol {
+  margin: 0 0 $lh 0;
+  padding-left: 2em;
+}
+li { margin-bottom: 4px; }
+
+dl {
+  margin: 0 0 $lh 0;
+}
+
+dt {
+  margin-top: .6em;
+  font-weight: 700;
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+dt:first-child {
+  margin-top: 0;
+}
+
+dd {
+  margin: .15em 0 0 1em;
+  font-weight: 400;
+}
+
+// ─── Line height dentro page-content ──────
+.page-content p,
+.page-content li {
+  line-height: 1.55;
+}
+
+// ─── Codice ───────────────────────────────
+code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88em;
+  background: $ivory;
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+pre {
+  background: $ivory;
+  border-radius: 8px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+pre code { background: none; padding: 0; font-size: 0.85em; }
+
+// ─── Citazioni ────────────────────────────
+blockquote {
+  border-left: 4px solid $green-dark;
+  border-radius: 4px;
+  background: $ivory;
+  margin: 0 0 $lh 0;
+  padding: 4px 16px;
+  color: $text-color;
+  font-style: italic;
+}
+
+// ─── Carattere spazioso ─────────────────
+.es-spazioso {
+ font-family: 'OpenDyslexic', Georgia, serif;
+ font-size: 0.65em;
+}
+
+.use-spazioso {
+ font-family: 'OpenDyslexic', Georgia, serif;
+}
+
+// ─── Tabelle ──────────────────────────────
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: $lh 0;
+  font-size: 0.95em;
+}
+th, td {
+  border: 1px solid $hairline;
+  padding: 8px 12px;
+  text-align: left;
+}
+th {
+  background: $green-dark;
+  color: $ivory;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+}
+tr:nth-child(even) { background: $surface-alt; }
+
+// ─── Immagini ─────────────────────────────
+img { max-width: 100%; height: auto; }
+
+// ─── Post layout ──────────────────────────
+.post-header { margin-bottom: $lh; }
+.post-title  { margin-top: 0; text-align: center; }
+
+// ─────────────────────────────────────────
+// GRIGLIA BASE
+// $lh usato per margini e padding uniformi.
+// ─────────────────────────────────────────
+
+// ─── Body ─────────────────────────────────
+body {
+  background-color: $background-color;
+  line-height: $lh;
+}

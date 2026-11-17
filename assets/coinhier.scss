@@ -1,0 +1,7 @@
+@use "variables" as *;
+@use "act" as *;
+
+// ─── Header e titolo in ultramarine ───────────────────────
+
+body.coinhier .site-header { background-color: $ultramarine; }
+body.coinhier .post-title  { color: $ultramarine; }

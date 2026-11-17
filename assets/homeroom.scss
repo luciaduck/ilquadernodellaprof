@@ -1,0 +1,25 @@
+@use "variables" as *;
+@use "buttons" as *;
+@use "egg" as *;
+
+.post-title {
+  text-align: center;
+}
+
+// colori titolo e uovo
+body.melanzana  .post-title, body.melanzana  .egg-area { color: $melanzana; }
+body.notte      .post-title, body.notte      .egg-area { color: $notte; }
+body.lampone    .post-title, body.lampone    .egg-area { color: $lampone; }
+body.fiordaliso .post-title, body.fiordaliso .egg-area { color: $fiordaliso; }
+body.senape     .post-title, body.senape     .egg-area { color: $senape; }
+
+// stile scroll hint
+.egg-scroll-hint {
+  font-size: 0.85rem;
+  color: $text-color;
+  text-align: center;
+  margin: 16px 0 8px;
+}
+.egg-label {
+  margin-top: 24px;
+} 

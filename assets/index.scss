@@ -1,0 +1,307 @@
+@use "variables" as *;
+@use "animation" as *;
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-content {
+  flex: 1 0 auto;
+  padding-top: 0 !important;
+}
+
+// ─── index mobile layout ───────────────────────────────
+
+.index-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  flex: 1 0 auto;
+}
+
+.hero-row,
+.index-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.index-row {
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  order: 2;
+}
+
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  order: 1;
+  text-align: center;
+  align-items: center;
+}
+
+.hero-divider {
+  border: none;
+  height: 1px;
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto 2rem auto;
+  background: linear-gradient(
+    to left,
+    transparent,
+    $green,
+    transparent
+  );
+}
+
+.index-left {
+  text-align: center;
+  padding: 1rem;
+  order: 1;
+}
+
+.index-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  order: 2;
+  align-items: stretch;
+}
+
+footer {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+// ─── index components ───────────────────────────────
+
+img.duck {
+width: 180px;
+margin-bottom: 1.5rem;
+}
+
+.righteous-title  { 
+  margin-top: 0; 
+  text-align: center; 
+  font-family: 'Righteous', sans-serif; 
+}
+
+// ─── section alunni ───────────────────────────────
+
+.alunni-title {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: $heart;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.alunni {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto 3rem auto;  
+}
+
+.bottone {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  padding: 0.5rem;
+  border-radius: 22px;
+  font-family: Nunito, sans-serif;
+  transition: transform 0.1s, filter 0.1s;
+  color: $ivory !important;
+  text-decoration: none !important;
+  min-width: 0;
+  white-space: nowrap; 
+  font-size: clamp(0.5rem, 6vw, 1rem);
+  grid-column: span 4;
+
+  &:hover .lettera,
+  &:focus .lettera,
+  &:active .lettera {
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+}
+
+/* =IF('.bottone'="3, 6";"";"following") */
+
+// bottone = 2, 4
+.bottone:first-child:nth-last-child(2),
+.bottone:first-child:nth-last-child(2) ~ .bottone,
+.bottone:first-child:nth-last-child(4),
+.bottone:first-child:nth-last-child(4) ~ .bottone {
+  grid-column: span 6;
+}
+
+// bottone = 5
+.bottone:first-child:nth-last-child(5) ~ .bottone:nth-child(4) {
+  grid-column: 3 / span 4;
+}
+
+.bottone:active { transform: scale(0.97); }
+.bottone:hover, .bottone:focus { filter: brightness(1.12); }
+
+.bottone .lettera {
+  display: block;
+  font-size: 3.5rem;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+  font-family: 'Nunito', sans-serif;
+}
+.bottone .nome {
+  display: block;
+  font-size: 1rem;
+  opacity: 1;
+  font-family: 'Nunito Sans', sans-serif;
+}
+.bottone-notte      { background-color: $notte; color: $ivory; }
+.bottone-melanzana  { background-color: $melanzana; color: $ivory; }
+.bottone-lampone    { background-color: $lampone; color: $ivory; }
+.bottone-fiordaliso { background-color: $fiordaliso; color: $ivory; }
+.bottone-senape     { background-color: $senape; color: $ivory; }
+
+// ─── aside ───────────────────────────────
+
+.cuore {
+  display: inline-block;
+  padding: 8px 20px;
+  background: $ivory;
+  border: 1.5px dashed $heart-border;
+  border-radius: 22px;
+  color: $heart !important;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.95em;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: filter .2s;
+
+  &:hover,
+  &:focus,
+  &:active {
+    filter: brightness($hover-brightness);
+    border: 1.5px dashed $sage;
+    text-decoration: underline !important;
+    text-underline-offset: 6px;
+  }
+}
+
+.foglia {
+  display: inline-block;
+  padding: 8px 20px;
+  background: $ivory;
+  border: 1.5px dashed $sage;
+  border-radius: 22px;
+  color: $green-dark !important;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.95em;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: filter .2s;
+
+  &:hover,
+  &:focus,
+  &:active {
+    filter: brightness($hover-brightness);
+    border: 1.5px dashed $heart-border;
+    text-decoration: underline !important;
+    text-underline-offset: 6px;
+  }
+}
+
+.pwa {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 1.5px dashed $sage;
+  border-radius: 22px;
+  background: none;
+  overflow: hidden;
+  transition: filter 0.2s;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &:active {
+    filter: brightness($hover-brightness);
+    border: 1.5px dashed $melanzana;
+  }
+}
+
+.pwa img {
+  width: 100%;
+  display: block;
+}
+
+// ─── aside toggle ───────────────────────────────
+
+.index-right {
+  button {
+    cursor: pointer;
+    margin: 0;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+}
+
+.accordion {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  text-align: left;
+  padding: 0 1rem;
+}
+
+.anatroccoli {
+  border: 1.5px dashed $note-border;
+  border-radius: 22px;
+  padding: 1rem;
+  background: color-mix(in srgb, $ivory 50%, transparent);
+}
+
+// ─── desktop layout ───────────────────────────────
+
+@media (min-width: 769px) {
+  .hero-row,
+  .index-row      { flex-direction: row; align-items: flex-start; gap: 10rem; }
+  .hero-left      { width: 75%; align-items: center; order: 1;}
+  .hero-right     { width: 25%; align-items: center; order: 2;}
+  .hero-divider   { max-width: 1000px;}
+  .index-left     { width: 50%; order: 1;}
+  .index-right    { width: 50%; align-items: stretch; order: 2;}
+  h1.righteous-title     { font-size: 2.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion {
+    transition: none;
+  }
+}

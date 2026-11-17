@@ -1,0 +1,7 @@
+@use "variables" as *;
+// ─── Colori classe ────────────────────────
+body.melanzana  .site-header { background-color: $melanzana; }
+body.notte      .site-header { background-color: $notte; }
+body.lampone    .site-header { background-color: $lampone; }
+body.fiordaliso .site-header { background-color: $fiordaliso; }
+body.senape     .site-header { background-color: $senape; }

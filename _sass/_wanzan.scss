@@ -1,0 +1,395 @@
+$wanzan-border:  #0fba51;
+$wanzan-text:    #5c0fba;
+$wanzan-bg:      #f7e6ff;
+@use "variables" as *;
+
+// ─── Bottone WanZan.AI ─────────────────────
+.btn-wanzan {
+  padding: 6px 14px;
+  cursor: pointer;
+  background: $bg;
+  color: $wanzan-text;
+  border: 1.5px solid $wanzan-border;
+  border-radius: 22px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+  font-size: 0.95rem;
+  transition: background 0.15s, transform 0.1s ease;
+  &:hover {
+    background: $wanzan-bg;
+    transform: scale(1.03);
+  }
+}
+
+// ─── VANZANA AI ───────────────────────────────────────────
+// Finestra sovrapposta alla pagina in uso. La freccia in alto a sinistra
+// chiude, esattamente come un secondo clic sul bottone Vanzana.
+
+.wanzan-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  flex-direction: column;
+  border: 2px solid $ultramarine;
+  background: $background-color;
+  overflow: hidden;
+
+  &.is-open { display: flex; }
+}
+
+.wanzan-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 10px 14px;
+  background: $ultramarine;
+  color: $coinhier;
+}
+
+.wanzan-back {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: $coinhier;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: color-mix(in srgb, $coinhier 22%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $coinhier;
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wanzan-back { transition: none; }
+}
+
+// ── Presentazione: immagine a sinistra, testo a destra ──
+.wanzan-intro {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  padding: 14px;
+  background: $background-color;
+  color: $heart;
+  border-bottom: 2px solid $ultramarine;
+}
+
+
+// ─── Ultimare .wanzan-avatar ──────────────────────
+// Un'unica immagine verticale con quattro riquadri impilati:
+//   0 saluto · 1 attesa · 2 pensa · 3 parla
+// Il JS cambia solo data-stato, il fondo scorre di un riquadro.
+// Finché l'immagine non c'è si vede il riquadro chiaro: nessun
+// buco nel layout, nessuna icona rotta.
+.wanzan-avatar {
+  flex: 0 0 auto;
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: $ivory;
+  background-image: url("/assets/icons/wanzan.png"); // ← cambia qui l'estensione
+  background-repeat: no-repeat;
+  background-size: 100% 400%; // 4 riquadri: se ne aggiungi uno diventa 500%
+  background-position: 0 0;
+ 
+  &[data-stato="attesa"] { background-position: 0 33.3333%; }
+  &[data-stato="pensa"]  { background-position: 0 66.6667%; }
+  &[data-stato="parla"]  { background-position: 0 100%; }
+}
+
+// ── Conversazione ──
+.wanzan-chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 14px;
+  background: $ivory;
+  color: $text-color;
+}
+
+// Testi dell'assistente: nessun contenitore, scritti direttamente in chat.
+.wanzan-msg {
+  margin: 0 0 $lh 0;
+}
+
+// Scelta dell'utente, una volta fatta.
+.wanzan-user {
+  max-width: 80%;
+  margin: 0 0 $lh auto;
+  padding: 10px 16px;
+  border-radius: 18px 18px 4px 18px;
+  background: $coinhier;
+  color: $text-color;
+}
+
+// ── Opzioni ──
+// Nessuna area di input e nessun invio: l'interazione è solo per scelta.
+// Rispetto ad .act-try i fondi sono invertiti.
+.wanzan-opts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: $lh;
+}
+
+.wanzan-opt {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid $ultramarine;
+  border-radius: 16px;
+  background: $coinhier;
+  color: $text-color;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover,
+  &:focus-visible,
+  &:active {
+    background: $ivory;
+  }
+}
+
+
+// Niente scroll della pagina sotto mentre la finestra è aperta.
+body.wanzan-lock { overflow: hidden; }
+ 
+// wanzan.ai, in barra accanto alla freccia.
+.wanzan-brand {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+ 
+// "Chiedi aiuto a Olivanzana!" — eredita $heart da .wanzan-intro.
+.wanzan-hello {
+  margin: 0;
+  font-weight: 700;
+  text-wrap: balance;
+}
+ 
+// La conversazione riceve il focus quando non ci sono bottoni:
+// il contorno di default darebbe un alone su tutta la colonna.
+.wanzan-chat:focus { outline: none; }
+ 
+// Blocco di risposta: paragrafi normali, ma il contenitore prende
+// il focus a fine generazione così il lettore di schermo annuncia
+// il testo una volta sola.
+.wanzan-answer:focus-visible {
+  outline: 2px solid $ultramarine;
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+ 
+// Sezione già spiegata, nell'elenco: resta cliccabile — riascoltare
+// una spiegazione non costa niente, arriva dalla cache.
+.wanzan-opt.is-used {
+  background: $ivory;
+  color: $text-muted;
+}
+ 
+.wanzan-opt__tick {
+  float: right;
+  margin-left: 10px;
+  color: $sage;
+  font-weight: 700;
+}
+ 
+// "Olivanzana sta pensando…" — sparisce al primo pezzo di risposta.
+.wanzan-typing {
+  margin: 0 0 $lh 0;
+  color: $text-muted;
+  font-style: italic;
+}
+ 
+// Guasto: cosa è successo e cosa fare, mai solo "errore".
+.wanzan-error {
+  margin: 0 0 $lh 0;
+  padding: 14px;
+  border: 2px solid $heart-border;
+  border-radius: 16px;
+  background: $surface-note;
+  color: $text-color;
+ 
+  p { margin: 0 0 12px 0; }
+  &:focus { outline: none; }
+}
+ 
+ 
+// ─── Mappa concettuale ─────────────────────────────────────────
+// Albero, non grafo radiale: si legge in colonna sul telefono,
+// funziona col tab e col lettore di schermo, e non ha bisogno di
+// una libreria di disegno.
+ 
+.wanzan-map {
+  margin: 0 0 $lh 0;
+  padding: 16px 14px;
+  border: 2px solid $ultramarine;
+  border-radius: 16px;
+  background: $background-color;
+ 
+  &:focus { outline: none; }
+}
+ 
+.wanzan-map__center {
+  display: block;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: $ultramarine;
+  color: $coinhier;
+  font-weight: 700;
+  text-align: center;
+  text-wrap: balance;
+}
+ 
+.wanzan-map__branches,
+.wanzan-map__children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ 
+.wanzan-map__branches { margin-top: 16px; }
+.wanzan-map__children { margin-top: 8px; }
+ 
+.wanzan-map__branch {
+  position: relative;
+  margin-top: 10px;
+  padding-left: 20px;
+ 
+  // Il filo che tiene insieme il ramo.
+  &::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    border-radius: 2px;
+    background: color-mix(in srgb, $ultramarine 35%, transparent);
+  }
+}
+ 
+.wanzan-map__node {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: $coinhier;
+  color: $text-color;
+}
+ 
+// Casella da riempire. Il tratteggio dice "qui manca qualcosa"
+// anche a chi non distingue i colori.
+.wanzan-map__blank {
+  border: 2px dashed $ultramarine;
+  background: $ivory;
+  color: $text-color;
+  font: inherit;
+ 
+  &:focus-visible {
+    outline: 2px solid $ultramarine;
+    outline-offset: 2px;
+  }
+ 
+  // Giusto e sbagliato non si distinguono solo per colore:
+  // cambia anche il tratto del bordo, e l'esito è scritto sotto.
+  &.is-right {
+    border-style: solid;
+    border-color: $sage;
+    background: $surface-soft;
+  }
+ 
+  &.is-wrong {
+    border-style: double;
+    border-width: 3px;
+    border-color: $heart;
+    background: $surface-note;
+  }
+}
+ 
+.wanzan-map__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+ 
+  .wanzan-opt { width: auto; flex: 1 1 auto; text-align: center; }
+}
+ 
+.wanzan-map__esito {
+  margin: 12px 0 0 0;
+  color: $text-muted;
+ 
+  &:empty { display: none; }
+}
+ 
+ 
+// ─── media ────────────────────────────────────────────────────
+
+@media print {
+  .wanzan-overlay { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wanzan-opt { transition: none; }
+}
+
+@media (min-width: 900px) {
+  .wanzan-overlay {
+    width: min(800px, 100%);
+    margin-inline: auto;
+    border-width: 0 2px; // sopra e sotto il bordo cadrebbe fuori schermo
+    box-shadow: 0 0 0 100vmax color-mix(in srgb, $text-color 45%, transparent);
+  }
+
+  .wanzan-chat {
+    font-size: 1.1em;
+  }
+}
+
+// ─── animazione ──────────────────────────────────────────────
+
+
+@keyframes wanzan-entra {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes wanzan-appare {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.wanzan-overlay.is-open {
+  animation: wanzan-entra 220ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wanzan-overlay.is-open {
+    animation: wanzan-appare 120ms linear;
+  }
+}

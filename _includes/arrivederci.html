@@ -1,0 +1,74 @@
+---
+layout: default
+---
+
+{% comment %} ── Logica period ────────────────────────────── {% endcomment %}
+{% assign p = period %}
+
+{% if p == "summer" %}
+  {% assign vacanze_titolo = "Buone vacanze!" %}
+  {% assign titolo_colore  = "var(--fiordaliso)" %}
+  {% assign details_color  = "var(--fiordaliso)" %}
+  {% assign vacanze_img    = "/assets/icons/travel.png" %}
+  {% assign vacanze_alt    = "Estate!" %}
+  {% assign icon_credit = 'Icona di <a href="https://www.flaticon.com/packs/duck-summer-16150564">dian-ratri</a> tramite <a href="https://www.flaticon.com">Flaticon</a>.' %}
+{% elsif p == "winter" %}
+  {% assign vacanze_titolo = "Buone vacanze!" %}
+  {% assign titolo_colore  = "var(--lampone)" %}
+  {% assign details_color  = "var(--lampone)" %}
+  {% assign vacanze_img    = "/assets/icons/duckxmas.jpg" %}
+  {% assign vacanze_alt    = "Fate i buoni!" %}
+  {% assign icon_credit = 'Icona di <a href="https://www.magnific.com/author/catalyststuff">catalystuff</a> tramite <a href="https://www.magnific.com">Magnific</a>.' %}
+{% else %}
+  {% assign vacanze_titolo = "Arrivederci " | append: p | append: "! ❤️" %}
+  {% assign titolo_colore = titolo_colore | default: "var(--green-dark)" %}
+  {% assign details_color = titolo_colore %}
+  {% assign vacanze_img   = "/assets/icons/ducklings.png" %}
+  {% assign vacanze_alt   = "Arrivederci, ragazzi..." %}
+  {% assign icon_credit = 'Icona di <a href="https://www.magnific.com/es/icono/pato_2592092">Freepik</a> tramite <a href="https://www.magnific.com">Magnific</a>.' %}
+{% endif %}
+
+<style>
+  .arrivederci-hero {
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .arrivederci-img {
+    max-width: 350px;
+    height: auto;
+    border-radius: 18px;
+    display: block;
+    margin: 0 auto;
+  }
+  .arrivederci-page details {
+    border-color: {{ details_color }};
+    background: color-mix(in srgb, {{ details_color }} 9%, transparent);
+  }
+  .arrivederci-page details summary {
+    color: {{ details_color }};
+  }
+  .arrivederci-page details[open] summary {
+    border-bottom-color: color-mix(in srgb, {{ details_color }} 53%, transparent);
+  }
+</style>
+
+<article class="post arrivederci-page">
+
+  <header class="arrivederci-hero">
+    <img
+      src="{{ vacanze_img }}"
+      alt="{{ vacanze_alt }}"
+      class="arrivederci-img"
+    />
+    <h1 style="color: {{ titolo_colore }};">
+      {{ vacanze_titolo }}
+    </h1>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+    {% include contacts.html %}
+    <p class="arrivederci-credit">{{ icon_credit }}</p>
+  </div>
+
+</article>

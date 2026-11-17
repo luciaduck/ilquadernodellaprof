@@ -1,0 +1,68 @@
+---
+layout: free
+extra_css: [index.css, minimal-footer.css]
+---
+<article class="post">
+  <div class="post-content">
+   {%- include as-a-bird.html -%}
+  </div>
+</article>
+  <script>
+  // accordion toggle
+function toggle(elId, bodyId) {
+  const el = document.getElementById(elId);
+  const body = document.getElementById(bodyId);
+  const isOpen = el.classList.contains('open');
+  body.style.maxHeight = isOpen ? '0' : body.scrollHeight + 'px';
+  el.classList.toggle('open');
+  if (isOpen) {
+    body.setAttribute('inert', '');
+  } else {
+    body.removeAttribute('inert');
+  }
+}
+
+document.querySelectorAll('.accordion').forEach(body => body.setAttribute('inert', ''));
+
+// PWA install
+let deferredPrompt;
+let isInstalled = false;
+const pwaBtn = document.getElementById('pwa');
+
+const isStandalone =
+  window.matchMedia('(display-mode: standalone)').matches ||
+  window.navigator.standalone === true; // iOS Safari
+
+// capture native install prompt
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
+pwaBtn?.addEventListener('click', async () => {
+  if (isStandalone || isInstalled) {
+    // already installed
+    toggle('pwa', 'pwa-installed-body');
+    return;
+  }
+
+  if (deferredPrompt) {
+    // native prompt
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+
+    if (outcome === 'accepted') {
+      isInstalled = true;
+    }
+  } else {
+    // fallback: manual instructions
+    toggle('pwa', 'pwa-body');
+  }
+});
+
+// installed elsewhere (e.g. browser menu)
+window.addEventListener('appinstalled', () => {
+  isInstalled = true;
+});
+  </script>

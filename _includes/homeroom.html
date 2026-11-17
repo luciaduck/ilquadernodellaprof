@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'it' }}">
+  {%- include head.html -%}
+  <body class="{{ classe }}">
+    {%- include header.html -%}
+    <main class="page-content" aria-label="Contenuto">
+      <div class="wrapper">
+        <h1 class="post-title">{{ title }}</h1>
+        {{ msg }}
+
+        <p class="egg-label" id="eggLabel" onclick="toggleEgg()">Tocca l'uovo per vedere se ci sono i compiti! 🥚</p>
+
+        <div class="egg-area" id="eggArea">
+          <div class="egg-scene" id="eggScene" onclick="toggleEgg()">
+            <div class="egg-wrapper">
+              <div class="egg-top"></div>
+              <div class="egg-seam"></div>
+              <div class="egg-inner-text">incrocia le dita... 🤞</div>
+              <div class="egg-bottom"></div>
+            </div>
+          </div>
+   <!-- decommentare per effetto albume, poi porta setTimeout da 700 a 1350
+          <div class="albume-wrap" aria-hidden="true">
+            <div class="albume-drip"></div>
+            <div class="albume-splat"></div>
+          </div>
+                  -->
+          <div class="egg-content">
+            <div class="egg-box">
+              {{ content }}
+            </div>
+          </div>
+        </div>
+    <p class="egg-scroll-hint">scorri per curiosare nel quaderno ↓</p>
+    {% include {{ btn }} %}
+      </div>
+    </main>
+    {%- include footer.html -%}
+    <script>
+      let isOpen = false;
+      let contentTimer = null;
+
+      function toggleEgg() {
+        const area = document.getElementById('eggArea');
+        const label = document.getElementById('eggLabel');
+
+        if (isOpen) {
+          isOpen = false;
+          area.classList.remove('open', 'animating', 'content-visible');
+          clearTimeout(contentTimer);
+          label.textContent = 'Tocca l\'uovo per vedere se ci sono i compiti! 🥚';
+        } else {
+          isOpen = true;
+          area.classList.add('open');
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              area.classList.add('animating');
+            });
+          });
+          contentTimer = setTimeout(() => {
+            area.classList.add('content-visible');
+            label.textContent = 'Toccami per far sparire i compiti! 🥚';
+          }, 700);
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,509 @@
+@use "variables" as *;
+
+// ─── ACT! ─────────────────────────────────────────────────
+
+.loading-msg {
+  text-align: center;
+  color: $text-muted;
+  font-style: italic;
+  padding: 2rem 0;
+}
+
+.act-container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  h1, h2, h3, h4, h5, h6 { color: $heart; }
+
+  // I bottoni non ereditano il font: senza questo restano nel font
+  // di sistema e i comandi A+/A− della pagina non li toccano.
+  button { font: inherit; }
+}
+
+// ── Una domanda per volta ──
+// Niente scorrimento: la slide attiva è l'unica visibile.
+// Le altre hanno [hidden], quindi non sono raggiungibili da tastiera
+// né lette dagli screen reader, ma restano nel DOM per la stampa.
+.act-track {
+  width: 100%;
+}
+
+.act-slide {
+  background: $ivory;
+  border-radius: 22px;
+  padding: 14px 18px;
+  scroll-margin-top: 5rem; // header fisso
+
+  &[hidden] { display: none; }
+
+  &:focus { outline: none; }
+  &:focus-visible {
+    outline: 3px solid $ultramarine;
+    outline-offset: 4px;
+  }
+
+  animation: act-fade 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes act-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .act-slide { animation: none; }
+}
+
+// ── Intestazione della domanda ──
+// Il fondo è quello della slide: qui serve solo lo stacco dal contenuto.
+.act-question {
+  margin-block-end: $lh;
+}
+
+.act-question__counter {
+  margin: 0 0 0.25em;
+  font-size: 0.8em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+.act-question__title {
+  margin: 0;
+  line-height: 1.25;
+}
+
+// ── Numeri domanda ──
+// Comandi di navigazione: il numero resta sempre leggibile,
+// lo stato è dato da colore + segno, mai dal solo colore.
+.act-quest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 $lh 0;
+  padding: 0;
+}
+
+.act-quest__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75em;
+  height: 2.75em;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  border: 2px solid $ultramarine;
+  background: none;
+  color: $ultramarine;
+  cursor: pointer;
+  padding: 0;
+
+  &:focus-visible {
+    outline: 3px solid $ultramarine;
+    outline-offset: 3px;
+  }
+
+  // Domanda corrente: anello interno, così resta riconoscibile anche
+  // quando il fondo è già occupato dallo stato della risposta.
+  // Sta dentro il cerchio: non ruba spazio e non tocca il gap.
+  &[aria-current="true"] {
+    font-weight: 700;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border: 2px solid;
+      border-color: inherit;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+  }
+
+  &[data-status="todo"][aria-current="true"] {
+    background: $ultramarine;
+    color: $ivory;
+    border-color: $ivory;
+  }
+
+  &[data-status="correct"] {
+    background: $green-light;
+    border-color: $green-dark;
+    color: $ink;
+  }
+
+  &[data-status="wrong"] {
+    background: $coinhier;
+    border-color: $senape;
+    color: $text-color;
+  }
+}
+
+.act-quest__badge {
+  position: absolute;
+  inset-block-end: -3px;
+  inset-inline-end: -3px;
+  display: grid;
+  place-items: center;
+
+  // display: grid vince su [hidden] del browser: senza questa riga
+  // il JS nasconde il badge e resta comunque un cerchietto vuoto.
+  &[hidden] { display: none; }
+  width: 1.3em;
+  height: 1.3em;
+  font-size: 0.7em;
+  line-height: 1;
+  border-radius: 50%;
+  border: 1.5px solid;
+
+  [data-status="correct"] & {
+    background: $green-dark;
+    border-color: $green-light;
+    color: $green-light;
+  }
+
+  [data-status="wrong"] & {
+    background: $senape;
+    border-color: $coinhier;
+    color: $text-color;
+  }
+}
+
+// ── Risposte ──
+.act-try {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border: 3px solid $ultramarine;
+  border-radius: 16px;
+  background: none; // la superficie è già quella della slide
+  color: $text-color;
+  text-align: left;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+
+  // Indicatore di scelta: il segno di spunta distingue la selezione
+  // dal semplice passaggio del mouse, senza affidarsi al colore.
+  &::before {
+    content: "";
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 1.4em;
+    height: 1.4em;
+    border: 2px solid $ultramarine;
+    border-radius: 50%;
+    font-size: 0.85em;
+    line-height: 1;
+  }
+
+  // Hover e focus non cambiano colore: ispessiscono il bordo.
+  &:hover:not(:disabled) {
+    box-shadow: inset 0 0 0 2px $ultramarine;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $ultramarine;
+    outline-offset: 3px;
+  }
+
+  // Selezione: la coppia $ultramarine / $ivory già usata sui numeri.
+  &.is-selected,
+  &[aria-checked="true"] {
+    background: $ultramarine;
+    color: $ivory;
+    box-shadow: none;
+
+    &::before {
+      content: "✓";
+      background: $ivory;
+      border-color: $ivory;
+      color: $ultramarine;
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .act-try { transition: none; }
+}
+
+// ── Invio ──
+// Colonna centrata: il bottone sta in mezzo, l'eventuale messaggio
+// d'errore si allarga sotto senza incolonnarsi al suo fianco.
+.act-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-block-start: $lh;
+}
+
+.act-send {
+  display: inline-block;
+  padding: 12px 28px;
+  min-height: 44px;
+  border: none;
+  border-radius: 22px;
+  background: $ultramarine;
+  color: $coinhier;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover:not(:disabled),
+  &:focus-visible,
+  &:active:not(:disabled) {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $ultramarine;
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+  }
+}
+
+// Comando secondario. Stessa impronta di .act-send: il padding è il suo
+// meno i 2px di bordo, così i due bottoni risultano alti uguali.
+.act-ghost {
+  display: inline-block;
+  padding: 10px 26px;
+  min-height: 44px;
+  border: 2px solid $ultramarine;
+  border-radius: 22px;
+  background: none;
+  color: $ultramarine;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible,
+  &:active {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $ultramarine;
+    outline-offset: 3px;
+  }
+}
+
+// ── Reazione alla risposta ──
+.act-feedback {
+  &:focus { outline: none; }
+  &:focus-visible {
+    outline: 3px solid $ultramarine;
+    outline-offset: 4px;
+  }
+}
+
+.act-reaction__title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.act-reaction__body {
+  margin-block-start: 0.4em;
+
+  :first-child { margin-block-start: 0; }
+  :last-child { margin-block-end: 0; }
+}
+
+.act-continue {
+  margin-block-start: $lh;
+}
+
+// ── Risposta sbagliata ──
+.act-stop {
+  margin: $lh 0;
+  padding: 14px 18px;
+  border: 1.5px solid $senape;
+  border-radius: 12px;
+  background: $coinhier;
+  color: $text-color;
+}
+
+// ── Risposta giusta ──
+// $ink e non $text-color: --green-light resta chiaro anche di notte.
+.act-next {
+  margin: $lh 0;
+  padding: 14px 18px;
+  border: 1.5px solid $green-dark;
+  border-radius: 12px;
+  background: $green-light;
+  color: $ink;
+  animation: act-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes act-pop {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .act-next { animation: none; }
+}
+
+// ── Schermata finale ──
+.act-final {
+  background: $ivory;
+  border-radius: 22px;
+  padding: 14px 18px;
+  text-align: center;
+
+  &:focus { outline: none; }
+  &:focus-visible {
+    outline: 3px solid $ultramarine;
+    outline-offset: 4px;
+  }
+}
+
+.act-final__title {
+  margin: 0 0 0.6em;
+}
+
+// Punteggio: la cifra è il dato, l'etichetta la spiega.
+.act-score {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto $lh;
+  padding: 14px 18px;
+  border: 3px solid $ultramarine;
+  border-radius: 22px;
+  background: none;
+}
+
+.act-score__value {
+  display: flex;
+  align-items: baseline;
+  color: $ultramarine;
+  line-height: 1;
+}
+
+.act-score__right {
+  font-size: 2em;
+  font-weight: 700;
+}
+
+.act-score__sep,
+.act-score__total {
+  font-size: 1.4em;
+}
+
+.act-score__label {
+  font-size: 0.85em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+.act-final__msg {
+  max-width: 34em;
+  margin-inline: auto;
+  margin-block-end: $lh;
+}
+
+.act-corrections {
+  text-align: left;
+  margin-block-end: $lh;
+}
+
+.act-corrections__title {
+  margin: 0 0 0.5em;
+}
+
+.act-correction {
+  margin-block: 0 $lh;
+}
+
+.act-correction__title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 0.4em;
+  color: $text-color;
+}
+
+// Il numero rimanda alla domanda: è un riferimento, non un ornamento.
+.act-correction__num {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 50%;
+  border: 1.5px solid $senape;
+  font-size: 0.8em;
+}
+
+.act-correction__body {
+  :first-child { margin-block-start: 0; }
+  :last-child { margin-block-end: 0; }
+}
+
+.act-final__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+// ── Messaggi di servizio ──
+.act-empty,
+.act-error {
+  color: $text-muted;
+}
+
+.act-error {
+  margin-block-start: $lh;
+}
+
+.act-error-box {
+  text-align: center;
+
+  p { margin-block-end: $lh; }
+}
+
+// ── Stampa: tutte le domande, senza comandi ──
+@media print {
+  .act-slide[hidden] { display: block !important; }
+
+  .act-slide,
+  .act-final {
+    background: none;
+    padding: 0;
+    break-inside: avoid;
+    margin-block-end: $lh;
+    animation: none;
+  }
+
+  .act-quest,
+  .act-actions,
+  .act-continue,
+  .act-final__actions {
+    display: none !important;
+  }
+
+  .act-try {
+    border-width: 1.5px;
+  }
+}

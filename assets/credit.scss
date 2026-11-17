@@ -1,0 +1,49 @@
+@use "variables" as *;
+
+.credit-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  margin: 0 0 1rem 0;
+  position: relative;
+  background-color: $ivory;
+  color: $text-color;
+  border-radius: 0.5rem;
+  border: 1px solid $green-dark;
+}
+
+:is(h1, h2, h3, h4, h5, h6) + .credit-box {
+  margin-top: 1.5rem;
+}
+
+.credit-box:last-child {
+  margin-bottom: 0;
+}
+
+.credit-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 110px;
+}
+
+img.credit-item {
+  max-height: 80px;
+  max-width: 110px;
+  object-fit: contain;
+}
+
+#pwa img.credit-item {
+  max-height: 58px;
+}
+
+.credit-who {
+  flex: 1;
+  strong {
+    font-weight: 700;
+    color: $c-lin;
+  }
+}

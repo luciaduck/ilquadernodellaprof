@@ -1,0 +1,68 @@
+<div class="index-container">
+  <div class="hero-row">
+     <span class="hero-right">
+        <img class="duck animation-duck" src="/assets/icons/icon-512.png" alt="Il logo del sito è una paperella gialla con gli occhiali e una fogliolina verde in bocca.">
+     </span>
+     <span class="hero-left">
+        <header class="post-header">
+          <h1 class="post-title animation-eyebrow">Ehi! Hai aperto</h1>
+          <h1 class="righteous-title animation-title">il Quaderno della Prof!</h1>
+        </header>
+     </span>
+  </div>
+  <hr class="hero-divider animation-duck">
+
+  <div class="index-row animation-wrapper">
+     <section class="index-left" id="alunni">
+      <h2 class="alunni-title">Premi il bottone col simbolo della tua classe!</h2>
+      <div class="alunni">
+       {% for room in index.rooms %}
+       <a class="bottone bottone-{{ room.color }}" href="{{ room.url }}">
+       <span class="lettera">{{ room.id }}</span>
+       </a>
+       {% endfor %}
+      </div>
+     </section>
+     <aside class="index-right" id="menu">
+       <button onclick="toggle('ex', 'ex-body')" class="cuore" id="ex">Area ex alunni ♡</button>
+        <div class="accordion" id="ex-body">
+            <p>Cari ragazzi e ragazze,</p>
+            <p>è stato bello camminare insieme. La pagina dedicata alla vostra classe rimarrà sempre sul sito. Potrete tornarci quando vorrete rivedere qualche materiale o se vi andrà di scrivermi.</p>
+               <h3 class="alunni-title">A.S. 2025/2026</h3>
+               <div class="alunni anatroccoli">
+                  {% for room in as2526.rooms %}
+                  <a class="bottone bottone-{{ room.color }}" href="{{ room.url }}">
+                  <span class="lettera">{{ room.id }}</span>
+                  </a>
+                  {% endfor %}
+                 </div>
+               <h3 class="alunni-title">A.S. 2024/2025</h3>
+               <div class="alunni anatroccoli">
+                  {% for room in as2425.rooms %}
+                  <a class="bottone bottone-{{ room.color }}" href="{{ room.url }}">
+                  <span class="lettera">{{ room.id }}</span>
+                  </a>
+                  {% endfor %}
+                 </div>
+            </div>
+       <button onclick="toggle('sa', 'sa-body')" class="foglia" id="sa">Che cos'è il Quaderno della Prof?</button>
+        <div class="accordion" id="sa-body">
+            <p>Il <strong>Quaderno della Prof</strong> è un progetto didattico curato e gestito da me. Contiene appunti, dispense e tante risorse per le mie classi.</p> 
+            <p>I materiali sono rilasciati con licenza <strong>CC BY-NC-SA</strong>, salvo diversa indicazione. Potete usarli liberamente a scopo didattico, purché mi citiate come autrice.</p>
+            <p>Se vuoi approfondire la metodologia e la bibliografia <a href="/about/#professional">clicca qui</a>.</p>
+            <p>Usa i link in fondo al sito per sapere di più sulla licenza, sulla dichiarazione di accessibilità, sulla policy privacy e su di me.</p>
+            </div>
+       <a href="/classe/genitori" class="cuore">Area genitori</a>
+       <button class="pwa" id="pwa"><img src="assets/icons/download.png" alt="Scarica l'app Qua!"></button>
+         <div class="accordion" id="pwa-body">
+            <p><strong>Su Android:</strong> tocca i tre puntini &#8942; in alto a destra e scegli <em>"Aggiungi a schermata Home"</em>.<br>
+            <strong>Su iPhone:</strong> tocca il pulsante di condivisione &#8593; e scegli <em>"Aggiungi a schermata Home"</em>.</p>
+            </div>
+         <div class="accordion" id="pwa-installed-body">
+            <p>L'app dovrebbe essere già installata sul tuo dispositivo! Se non la trovi, prova a cercare "Qua!" tra le tue app, oppure segui le istruzioni manuali qui sotto.</p>
+            <p><strong>Su Android:</strong> tocca i tre puntini &#8942; in alto a destra e scegli <em>"Aggiungi a schermata Home"</em>.<br>
+            <strong>Su iPhone:</strong> tocca il pulsante di condivisione &#8593; e scegli <em>"Aggiungi a schermata Home"</em>.</p>
+            </div>
+     </aside>
+  </div>
+</div>

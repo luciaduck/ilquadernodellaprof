@@ -1,0 +1,197 @@
+// ─── Variabili ────────────────────────────────────────────────────────────
+// Non funzionano su queste variabili: `darken(), lighten(), mix(), rgba()`.
+// Al loro posto si usa color-mix(). Su $ink e $paper rgba() funziona ancora.
+
+// ─── 1. Palette ───────────────────────────────────────────────────────────
+
+// ── Light side of the duck ──
+$hex-background-color: #f4ede2;
+$hex-text-color:       #2d2d2d;
+$hex-green:            #6b9c6e;
+$hex-green-light:      #d8fada;
+$hex-green-dark:       #49714C;
+$hex-ivory:            #fdfaf5;
+$hex-robinegg:         #0b5373;
+$hex-heart:            #c41e3a;
+$hex-heart-border:     #bd5367;
+$hex-sage:             #58855e;
+$hex-senape:           #a5691a;
+// Colori speciali ACT!
+$hex-ultramarine:      #0f52ba;
+$hex-coinhier:         #FAFC8C;
+// Colori Materie
+$hex-c-his:   #ad4917; // Storia
+$hex-c-geo:   #4a7c3f; // Geografia
+$hex-c-write: #2563b0; // Scrittura
+$hex-c-read:  #c0185d; // Lettura
+$hex-c-lin:   #c40033; // Lingua
+$hex-c-o:     #6e46a3; // Altro
+// Colori classe
+$hex-melanzana:  #6b4c8a;
+$hex-notte:      #2c4a7c;
+$hex-lampone:    #ad1457;
+$hex-fiordaliso: #3d6bb5;
+// Superfici e dettagli
+$hex-surface-info: #fdf8e2; // miele    — box-info, btn-torna, card-about
+$hex-surface-note: #fdeef0; // fragola  — box-nota, card-contatti
+$hex-surface-soft: #eef6ef; // verdino  — details, card-privacy, btn-stampa
+$hex-surface-alt:   #f7f3ec; // zebra delle tabelle
+$hex-surface-quote: #f0d4be; // pesca — fondo di .about-quote
+$hex-hairline:      #958d7e; // filetto delle celle di tabella
+$hex-hairline-soft: #e0dbd0; // filetto dei footer, più tenue
+$hex-text-muted:   #424242; // testo secondario del footer
+$hex-note-border:  #f0b8c0;
+$hex-note-accent:  #e08090;
+$dots-light: rgba(160,150,138,0.25); // trama a puntini
+
+// ── Dark side of the duck ──
+$hex-ebony:         #002b36;
+$hex-starry-night:  #073642;
+$hex-nocturne:      #fdf6e3;
+$hex-cherry:        #fbbcd8;
+$hex-cyan-aa:       #96ebe3; // robinegg notturno
+$hex-rust-aa:       #5b2c19; // solo come FONDO: come testo farebbe 1.13:1
+$hex-green-dark-aa: #aee0b2;
+$hex-green-light-dark:      #bde9c0;
+$hex-surface-dark:          #0a3e4b;
+$hex-surface-alt-dark:  #0a3f4d;
+$hex-hairline-dark:     #7fadb7;
+$hex-hairline-soft-dark: #2c5a68;
+$hex-text-muted-dark:  #d0d9d9;
+$dots-dark: rgba(253,246,227,0.07);
+
+// ─── 2. Motore ────────────────────────────────────────────────────────────
+
+@mixin theme-light {
+  --background-color: #{$hex-background-color};
+  --text-color:       #{$hex-text-color};
+  --text-muted:       #{$hex-text-muted};
+  --green:            #{$hex-green};
+  --green-light:      #{$hex-green-light};
+  --green-dark:       #{$hex-green-dark};
+  --ivory:            #{$hex-ivory};
+  --robinegg:         #{$hex-robinegg};
+  --heart:            #{$hex-heart};
+  --heart-border:     #{$hex-heart-border};
+  --sage:             #{$hex-sage};
+  --senape:           #{$hex-senape};
+  --ultramarine:      #{$hex-ultramarine};
+  --coinhier:         #{$hex-coinhier};
+
+  --c-his:      #{$hex-c-his};
+  --c-geo:      #{$hex-c-geo};
+  --c-write:    #{$hex-c-write};
+  --c-read:     #{$hex-c-read};
+  --c-lin:      #{$hex-c-lin};
+  --c-o:        #{$hex-c-o};
+  --melanzana:  #{$hex-melanzana};
+  --notte:      #{$hex-notte};
+  --lampone:    #{$hex-lampone};
+  --fiordaliso: #{$hex-fiordaliso};
+
+  --surface-info: #{$hex-surface-info};
+  --surface-note: #{$hex-surface-note};
+  --surface-soft: #{$hex-surface-soft};
+  --surface-alt:   #{$hex-surface-alt};
+  --surface-quote: #{$hex-surface-quote};
+  --hairline:      #{$hex-hairline};
+  --hairline-soft: #{$hex-hairline-soft};
+  --note-border:   #{$hex-note-border};
+  --note-accent:   #{$hex-note-accent};
+  --dots:          #{$dots-light};
+  // Di giorno l'hover scurisce: su una superficie chiara si vede.
+  --hover-brightness: 0.96;
+}
+
+@mixin theme-dark {
+  // Turn to the dark side
+  --background-color: #{$hex-starry-night};
+  --text-color:       #{$hex-nocturne};
+  --text-muted:       #{$hex-text-muted-dark};
+  --ivory:            #{$hex-ebony};
+  --robinegg:         #{$hex-cyan-aa};
+  --heart:            #{$hex-cherry};
+  --green-dark:       #{$hex-green-dark-aa};
+  --ultramarine:      #{$hex-nocturne};
+  --coinhier:         #{$hex-rust-aa};
+  --senape:           #{$hex-nocturne};
+
+  // Gruppo accorpato al verde scuro accessibile
+  --c-his:        #{$hex-green-dark-aa};
+  --c-geo:        #{$hex-green-dark-aa};
+  --c-write:      #{$hex-green-dark-aa};
+  --c-read:       #{$hex-green-dark-aa};
+  --c-lin:        #{$hex-green-dark-aa};
+  --c-o:          #{$hex-green-dark-aa};
+  --green-light:  #{$hex-green-light-dark}; // usato in nav
+  --sage:         #{$hex-green-dark-aa};
+  --heart-border: #{$hex-green-dark-aa};
+  --melanzana:    #{$hex-green-dark-aa};
+  --notte:        #{$hex-green-dark-aa};
+  --lampone:      #{$hex-green-dark-aa};
+  --fiordaliso:   #{$hex-green-dark-aa};
+  --note-border:  #{$hex-green-dark-aa};
+  --note-accent:  #{$hex-green-dark-aa};
+
+  // Le tre superfici collassano su un tono solo: di notte il sito è meno
+  // variopinto di proposito. I box restano distinguibili dal bordo.
+  --surface-info:  #{$hex-surface-dark};
+  --surface-note:  #{$hex-surface-dark};
+  --surface-soft:  #{$hex-surface-dark};
+  --surface-quote: #{$hex-surface-dark};
+  --surface-alt:   #{$hex-surface-alt-dark};
+  --hairline:      #{$hex-hairline-dark};
+  --hairline-soft: #{$hex-hairline-soft-dark};
+  --dots:          #{$dots-dark};
+  // Di notte deve schiarire
+  --hover-brightness: 1.18;
+}
+
+// I due mixin qui sopra NON vengono usati in questo file: li include `_theme.scss`
+
+// ─── 3. Ponte SCSS → CSS ──────────────────────────────────────────────────
+
+$background-color: var(--background-color);
+$text-color:       var(--text-color);
+$text-muted:       var(--text-muted);
+$green:            var(--green);
+$green-light:      var(--green-light);
+$green-dark:       var(--green-dark);
+$ivory:            var(--ivory);
+$robinegg:         var(--robinegg);
+$heart:            var(--heart);
+$heart-border:     var(--heart-border);
+$sage:             var(--sage);
+$senape:           var(--senape);
+$ultramarine:      var(--ultramarine);
+$coinhier:         var(--coinhier);
+
+$c-his:   var(--c-his);
+$c-geo:   var(--c-geo);
+$c-write: var(--c-write);
+$c-read:  var(--c-read);
+$c-lin:   var(--c-lin);
+$c-o:     var(--c-o);
+
+$melanzana:  var(--melanzana);
+$notte:      var(--notte);
+$lampone:    var(--lampone);
+$fiordaliso: var(--fiordaliso);
+
+$surface-info: var(--surface-info);
+$surface-note: var(--surface-note);
+$surface-soft: var(--surface-soft);
+$surface-alt:   var(--surface-alt);
+$surface-quote: var(--surface-quote);
+$hairline:      var(--hairline);
+$hairline-soft: var(--hairline-soft);
+$note-border:  var(--note-border);
+$note-accent:  var(--note-accent);
+$dots:         var(--dots);
+$hover-brightness: var(--hover-brightness);
+
+// ─── 4. Valori fissi (non seguono il tema) ────────────────────────────────
+
+$lh:    28px;
+$ink:   #2d2d2d; // testo su superfici che restano chiare per scelta
+$paper: #fdfaf5; // fondo delle pastiglie dei controlli

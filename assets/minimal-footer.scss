@@ -1,0 +1,28 @@
+@use "variables" as *;
+
+// ─── Minimal Footer ───────────────────────────────
+
+.minimal-footer {
+  background-color: $background-color;
+  background-image: none;
+  border-top: 1px solid $hairline-soft;
+  padding: 20px;
+  font-family: 'Nunito', sans-serif;
+}
+
+.m-footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.m-footer-flex {
+  text-align: center;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .m-footer-inner    { flex-direction: row; justify-content: center; align-items: center; }
+  .m-footer-flex     { text-align: center; }
+}

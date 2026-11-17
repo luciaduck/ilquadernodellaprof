@@ -1,0 +1,77 @@
+/* ── KEYFRAMES ── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(18px); }
+  to   { opacity:1; transform:none; }
+}
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes morph {
+  0%   { border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%; }
+  50%  { border-radius: 45% 55% 45% 55% / 55% 45% 55% 45%; }
+  100% { border-radius: 55% 45% 60% 40% / 45% 60% 40% 55%; }
+}
+@keyframes float {
+  0%,100% { transform:translateY(0) rotate(0deg); }
+  50%      { transform:translateY(-12px) rotate(8deg); }
+}
+
+@keyframes float-duck {
+  0% { 
+    transform: rotate(0deg) translateX(0); 
+  }
+  33% { 
+    transform: rotate(-8deg) translateX(-10px); /* Inclinazione e spostamento a sinistra */
+  }
+  66% { 
+    transform: rotate(8deg) translateX(10px);   /* Inclinazione e spostamento a destra */
+  }
+  100% { 
+    transform: rotate(0deg) translateX(0);      /* Ritorno al centro */
+  }
+}
+
+@mixin reduced {
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
+.animation-eyebrow {
+    animation: fadeUp .7s ease .1s forwards;
+    @include reduced;
+}
+
+.animation-title {
+  animation: fadeUp .7s ease .25s forwards;
+  @include reduced;
+}
+
+.animation-tagline {
+  animation: fadeUp .7s ease .4s forwards;
+  @include reduced;
+}
+
+.animation-wrapper {
+  animation: fadeIn .9s ease .6s forwards;
+  @include reduced;
+}
+
+.animation-blob {
+  animation: morph 10s ease-in-out infinite alternate;
+  @include reduced;
+}
+
+.animation-deco-1 {
+  animation: float 5s ease-in-out infinite;
+  @include reduced;
+}
+
+.animation-deco-2 {
+  animation: float 7s ease-in-out 1s infinite;
+  @include reduced;
+}
+
+.animation-duck {
+  animation: float-duck 1.2s ease-in-out .2s 1 forwards;
+  @include reduced;
+}

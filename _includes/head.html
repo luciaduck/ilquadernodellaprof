@@ -1,0 +1,76 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% seo title, description, og_image %}
+
+  <link rel="stylesheet" href="/assets/main.css?v={{ site.version }}">
+  {% if layout == 'homeroom' %}
+    <link rel="stylesheet" href="/assets/homeroom.css?v={{ site.version }}">
+  {% endif %}
+  {% if layout == 'book' %}
+    <link rel="stylesheet" href="/assets/book.css?v={{ site.version }}">
+  {% endif %}
+  {% if layout == 'act' %}
+    <link rel="stylesheet" href="/assets/coinhier.css?v={{ site.version }}">
+  {% endif %}
+  {% for css in extra_css %}
+    <link rel="stylesheet" href="{{ '/assets/' | append: css }}?v={{ site.version }}">
+  {% endfor %}
+
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/png" href="/assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/assets/icons/pwa-180.png">
+  <meta name="theme-color" content="#6b9c6e" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#073642" media="(prefers-color-scheme: dark)">
+
+  <script>
+    if ('serviceWorker' in navigator) {
+   navigator.serviceWorker.register('/sw.js');
+  
+   let refreshing = false;
+   navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!refreshing) {
+      refreshing = true;
+      window.location.reload(); // Forza il refresh quando il nuovo SW si attiva
+    }
+  });
+}
+    document.addEventListener('DOMContentLoaded', () => {
+      const chunks = ['del', 'ap', '.', 'lu', 'il', 'it', 'ac', 'der', 'ri', 'prof', 'ci', '@', 'no', 'ur', 'la', 'qua'];
+      const order = [3, 10, 6, 1, 13, 8, 11, 4, 15, 7, 12, 0, 14, 9, 2, 5];
+      const email = order.map(i => chunks[i]).join('');
+    document.querySelectorAll('.mail-protected').forEach(el => {
+      el.href = `mailto:${email}`;
+      if (el.classList.contains('show-email')) {
+     el.textContent = email;
+    }
+    });
+    const form = document.getElementById("form-contatti");
+    if (form) {
+      form.addEventListener("submit", function (evento) {
+        evento.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        const nome = form.nome.value.trim();
+        const messaggio = form.messaggio.value.trim();
+
+        window.location.href =
+          "mailto:" + email +
+          "?subject=" + encodeURIComponent("Un messaggio sul quaderno da perte di " + nome) +
+          "&body=" + encodeURIComponent(messaggio + "\n\n— " + nome);
+      });
+    }
+  });
+  </script>
+  <script src="/header.js" defer></script>
+  {% if layout == 'act' %}
+  <script src="/act.js" defer></script>
+  {% endif %}
+  {% for script in extra_script %}
+  <script src="{{ '/' | append: script }}" defer></script>
+  {% endfor %}
+</head>

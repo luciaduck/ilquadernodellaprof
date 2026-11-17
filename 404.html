@@ -1,0 +1,211 @@
+---
+layout: null
+permalink: /404.html
+title: "404 – Pagina non trovata"
+---
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 – Pagina non trovata · il Quaderno della Prof</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Righteous&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/main.css" />
+  <style>
+    /* Questa pagina carica main.css, quindi le variabili CSS del tema sono
+       già disponibili: qui si usa var(--nome) senza bisogno di altro.
+       I valori stanno in _sass/_variables.scss. */
+
+    body {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      background-image: radial-gradient(circle, var(--dots) 1.5px, transparent 1.5px);
+      background-size: 20px 20px;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    .duck-wrap {
+      position: relative;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: popIn .6s cubic-bezier(.34,1.56,.64,1) .2s forwards;
+    }
+
+    .duck-wrap img {
+      width: clamp(90px, 22vw, 140px);
+      height: auto;
+      filter: drop-shadow(0 8px 18px rgba(106,158,110,.25));
+      animation: wobble 4s ease-in-out 1s infinite;
+    }
+
+    .badge-404 {
+      position: absolute;
+      top: -10px;
+      right: -14px;
+      background: var(--green-dark);
+      color: var(--ivory);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 4px 12px;
+      border-radius: 50px;
+      box-shadow: 0 3px 10px rgba(106,158,110,.3);
+    }
+
+    .error-title {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      color: var(--green-dark);
+      line-height: 1.2;
+      margin-bottom: .8rem;
+      opacity: 0;
+      animation: fadeUp .6s ease .45s forwards;
+    }
+
+    .subtitle {
+      font-size: clamp(.95rem, 2.5vw, 1.1rem);
+      color: var(--text-muted);
+      max-width: 34ch;
+      line-height: 1.65;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp .6s ease .6s forwards;
+    }
+
+    .btn-home {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--green-dark);
+      color: var(--ivory);
+      border: 1.5px solid var(--sage);
+      border-radius: 22px;
+      font-family: sans-serif;
+      font-weight: bold;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform .15s ease, box-shadow .15s ease;
+      opacity: 0;
+      animation: fadeUp .6s ease .75s forwards;
+    }
+    .btn-home:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(106,158,110,.3);
+    }
+
+    .footer-404 {
+      border-top: 1px solid var(--hairline-soft);
+      padding: 1.2rem 1.5rem;
+      text-align: center;
+      font-family: 'Righteous', sans-serif;
+    }
+
+    .footer-404-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-size: .82rem;
+      color: var(--text-muted);
+    }
+
+    .footer-404-content p {
+      margin: 0;
+    }
+
+    .footer-duck-icon {
+      height: 32px;
+    }
+
+    .footer-404-content a {
+      color: var(--green-dark);
+      text-decoration: none;
+    }
+    .footer-404-content a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-attribution {
+      font-size: .7rem;
+      color: var(--text-muted);
+      margin: .5rem 0 0 0;
+    }
+    .footer-attribution a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .footer-attribution a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(.6) rotate(-8deg); }
+      to   { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+    @keyframes wobble {
+      0%,100% { transform: rotate(-3deg); }
+      50%      { transform: rotate(3deg); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .duck-wrap, .duck-wrap img, .error-title, .subtitle, .btn-home {
+        animation: none !important;
+        opacity: 1 !important;
+      }
+      .btn-home { transition: none; }
+      .btn-home:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  {% include header.html %}
+
+  <main>
+    <div class="duck-wrap">
+      <img
+        src="/assets/icons/drowning.png"
+        alt="Paperella che affonda"
+        width="140"
+        height="140"
+      />
+      <span class="badge-404">404</span>
+    </div>
+
+    <p class="error-title">Questa pagina si è persa!</p>
+    <p class="subtitle">
+      Forse l'indirizzo è sbagliato, o forse la pagina è stata spostata.<br>
+      Torna alla home e riprova da lì.
+    </p>
+    <a href="/" class="btn-home">&larr; Torna al Quaderno</a>
+  </main>
+
+  <footer class="footer-404">
+    <div class="footer-404-content">
+      <img src="/assets/icons/icon-192.png" alt="" class="footer-duck-icon" />
+      <p>il Quaderno della Prof · Lucia Capurri · <a href="/about/">Chi sono</a></p>
+    </div>
+    <p class="footer-attribution">
+      Icona principale di <a href="https://twitter.com/abbpandalyn?ref=svgrepo.com">Yan Liu</a> via <a href="https://www.svgrepo.com/">SVG Repo</a> - licenza CC Attribution.<br>
+      <a href="https://www.flaticon.com/packs/duck-doodle-15365303" title="duck icons">Icona 404: "Duck doodle" di vectorsmarket15 - Flaticon</a>
+    </p>
+  </footer>
+
+</body>
+</html>

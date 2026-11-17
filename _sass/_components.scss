@@ -1,0 +1,225 @@
+@use "variables" as *;
+// ─── Titoli ───────────────────────────────
+h1, h2, h3, h4, h5, h6 {
+  color: $green-dark;
+  font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+  font-weight: 800;
+  margin-top: $lh * 2;
+  margin-bottom: 0;
+}
+
+h1 {
+  font-size: 1.75rem;
+  line-height: $lh * 2;
+  margin-top: $lh;
+}
+
+h2 {
+  font-size: 1.3125rem;
+  line-height: $lh;
+}
+
+h3, h4, h5, h6 {
+  font-size: 1.1875rem;
+  line-height: $lh;
+}
+
+// Titoli a dimensione variabile
+article h1 {
+  font-size: 1.75em;
+}
+
+article h2 {
+  font-size: 1.3125em;
+}
+
+article h3,
+article h4,
+article h5,
+article h6 {
+  font-size: 1.1875em;
+}
+
+// ─── Paragrafi ────────────────────────────
+p {
+  margin-top: $lh * 0.5;
+  margin-bottom: $lh;
+}
+
+// ─── Link ─────────────────────────────────
+.page-content a:not(.btn-torna) {
+  color: $robinegg;
+  text-decoration: underline;
+}
+
+// ─── Controlli pagina ─────────────────────
+nav.controls {
+  position: sticky;
+  bottom: 0;
+  z-index: 999;
+  background-color: $background-color;
+  padding: 10px 0;
+  transform: translateZ(0);
+  transition: transform 0.3s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  nav.controls {
+    transition: none;
+  }
+}
+nav.controls.nav-hidden {
+  transform: translate3d(0, 100%, 0);
+}
+
+.page-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+// ─── Bottone Stampa ───────────────────────
+.btn-stampa {
+  padding: 6px 14px;
+  cursor: pointer;
+  background-color: $green-light;
+  color: $ink;
+  border: 1.5px solid $green-dark;
+  border-radius: 22px;
+  font-family: 'Nunito', sans-serif;
+  transition: transform 0.1s ease;
+  &:hover,
+  &:focus,
+  &:active {
+    filter: brightness(0.96);
+    transform: scale(1.03);
+  }
+}
+
+// ─── Font Buttons (A / A) ─────────────────
+.font-btn {
+  padding: 6px 14px;
+  border: 1.5px solid $green-dark;
+  border-radius: 14px;
+  background: rgba($paper, 0.9);
+  color: $ink;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  &:hover,
+  &:focus,
+  &:active {
+    filter: brightness(0.96);
+    transform: scale(1.03);
+  }
+}
+
+.font-btn:first-of-type { font-size: 0.85rem; }
+.font-btn:last-of-type  { font-size: 1.1rem; font-weight: bold; }
+
+// ─── Bottone OpenDyslexic ─────────────────
+.btn-dyslexic {
+  padding: 6px 14px;
+  border: 1.5px solid $green;
+  border-radius: 14px;
+  background: $paper;
+  color: $ink;
+  font-family: 'OpenDyslexic', Georgia, sans-serif;
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  &:hover,
+  &:focus,
+  &:active {
+    filter: brightness(0.96);
+    transform: scale(1.03);
+  }
+}
+
+body.dyslexic .btn-dyslexic {
+  background: $green-light;
+  color: $ink; // NON $text-color: qui il fondo resta chiaro anche in dark
+  border-color: $green-dark;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+}
+
+// ─── Bottone Torna ────────────────────────
+.btn-torna {
+  display: inline-block;
+  padding: 6px 14px;
+  cursor: pointer;
+  background: $surface-info;
+  color: $text-color;
+  border: 1.5px solid $senape;
+  border-radius: 22px;
+  margin: $lh 0;
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: transform 0.1s ease;
+  &:hover,
+  &:focus,
+  &:active {
+    // Sta su $surface-info, che di notte diventa scura: serve il verso variabile.
+    filter: brightness($hover-brightness);
+    transform: scale(1.03);
+  }
+}
+
+// ─── Details ──────────────────────────────
+details {
+  border: 1.5px solid $green-dark;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: $lh 0;
+  background: $surface-soft;
+}
+
+summary {
+  color: $green-dark;
+  background: $ivory;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  font-size: 1.05em;
+  line-height: $lh;
+}
+
+details[open] summary {
+  margin-bottom: 14px;
+  border-bottom: 1.5px dashed $green-dark;
+  padding-bottom: 14px;
+}
+
+// ─── Box Approfondimento (giallo) ─────────
+.box-info {
+  margin: $lh 0;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: $surface-info;
+  border: 1.5px solid $senape;
+  color: $text-color;
+  line-height: 1.55;
+}
+
+.box-info a {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+// ─── Box Nota (fragola pastello) ──────────
+.box-nota {
+  margin: $lh 0;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: $surface-note;
+  border: 1.5px solid $note-border;
+  border-left: 5px solid $note-accent;
+  color: $text-color;
+  line-height: 1.55;
+}

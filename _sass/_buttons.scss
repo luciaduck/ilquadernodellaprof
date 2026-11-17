@@ -1,0 +1,62 @@
+@use "variables" as *;
+
+// Griglia bottoni
+.btn-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px 0;
+  justify-content: center;
+}
+
+// Bottone base
+.h-btn {
+  flex: 0 0 calc(50% - 6px);
+  aspect-ratio: 1;
+  border-radius: 12px;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+}
+
+// Bottone dispari — occupa tutta la riga
+.h-btn:last-child:nth-child(odd) {
+  flex: 0 0 100%;
+  aspect-ratio: auto;
+  padding: 18px 12px;
+}
+
+// Desktop: quattro per riga
+@media (min-width: 600px) {
+  .h-btn {
+    flex: 0 0 calc(25% - 9px);
+  }
+  .h-btn:last-child:nth-child(odd) {
+    flex: 0 0 calc(25% - 9px);
+    aspect-ratio: 1;
+    padding: 12px;
+  }
+}
+
+// Colori per materia
+
+@mixin materia($c) {
+  color: $c;
+  background: color-mix(in srgb, #{$c} 6%, transparent);
+  border: 3px solid $c;
+  box-shadow: 0 4px 12px color-mix(in srgb, #{$c} 25%, transparent);
+}
+
+.btn-his   { @include materia($c-his); }
+.btn-geo   { @include materia($c-geo); }
+.btn-write { @include materia($c-write); }
+.btn-read  { @include materia($c-read); }
+.btn-lin   { @include materia($c-lin); }
+.btn-o     { @include materia($c-o); }

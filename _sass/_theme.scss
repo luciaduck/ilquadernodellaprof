@@ -1,0 +1,22 @@
+@use "variables" as *;
+
+// ─── Tema ─────────────────────────────────────────────────────────────────
+// Unico file che emette il blocco :root con le variabili CSS.
+// È caricato SOLO da `main.scss`.
+// Gli altri parziali continuano a fare @use "variables" as *.
+
+:root {
+  @include theme-light;
+
+  // Turn to the dark side
+  @media (prefers-color-scheme: dark) {
+    @include theme-dark;
+  }
+}
+
+// Per impedire a Firefox di applicare prefers-color-scheme anche in stampa. 
+@media print {
+  :root {
+    @include theme-light;
+  }
+}

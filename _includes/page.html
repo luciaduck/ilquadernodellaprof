@@ -1,0 +1,20 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title" id="post-title">{{ title | escape }}</h1>
+  </header>
+  <div class="post-content">    
+    {{ content }}
+    <a href="javascript:history.back()" class="btn-torna">← Torna indietro</a>
+  </div>
+  <nav class="controls">
+    <div class="page-controls">
+     <button class="btn-stampa" onclick="window.print()">🖨 Stampa</button>
+     <button class="font-btn" onclick="cambiaFont(-1)" aria-label="Rimpicciolisci testo">A−</button>
+     <button class="font-btn" onclick="cambiaFont(1)" aria-label="Ingrandisci testo">A+</button>
+     <button class="btn-dyslexic" onclick="toggleDyslexic()">Spazioso</button>
+    </div>
+  </nav>
+</article>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'it' }}">
+  {%- include head.html -%}
+  <body class="{{ classe }}">
+  <script> // Script per nav.controls
+  if (localStorage.getItem('dyslexic') === '1') {
+    document.body.classList.add('dyslexic');
+  }
+  let dimensione = parseFloat(localStorage.getItem('fontSize')) || 18;
+  document.body.style.fontSize = dimensione + 'px';
+  function cambiaFont(delta) {
+    dimensione = Math.min(Math.max(dimensione + delta * 2, 14), 28);
+    document.body.style.fontSize = dimensione + 'px';
+    localStorage.setItem('fontSize', dimensione);
+  }
+  function toggleDyslexic() {
+    const attivo = document.body.classList.toggle('dyslexic');
+    localStorage.setItem('dyslexic', attivo ? '1' : '0');
+    const btn = document.querySelector('.btn-dyslexic');
+    if (btn) btn.textContent = attivo ? 'Ristretto' : 'Spazioso';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('dyslexic') === '1') {
+      const btn = document.querySelector('.btn-dyslexic');
+      if (btn) btn.textContent = 'Ristretto';
+    }
+
+    const nav = document.querySelector('nav.controls');
+    const footer = document.querySelector('.site-footer');
+    let scrollTimeout;
+    let hovering = false;
+
+    function footerInView() {
+      return footer.getBoundingClientRect().top < window.innerHeight;
+    }
+
+    function isInteracting() {
+      return hovering || nav.contains(document.activeElement);
+    }
+
+    function showNav() {
+      nav.classList.remove('nav-hidden');
+      nav.removeAttribute('inert');
+    }
+
+    function scheduleHide() {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (window.scrollY > 50 && !footerInView() && !isInteracting()) {
+          nav.classList.add('nav-hidden');
+          nav.setAttribute('inert', '');
+        }
+      }, 3500);
+    }
+
+    window.addEventListener('scroll', () => {
+      showNav();
+      if (footerInView()) {
+        clearTimeout(scrollTimeout);
+        return;
+      }
+      scheduleHide();
+    });
+
+    nav.addEventListener('mouseenter', () => {
+      hovering = true;
+      showNav();
+      clearTimeout(scrollTimeout);
+    });
+
+    nav.addEventListener('mouseleave', () => {
+      hovering = false;
+      if (!footerInView()) scheduleHide();
+    });
+
+    nav.addEventListener('focusin', () => {
+      showNav();
+      clearTimeout(scrollTimeout);
+    });
+
+    nav.addEventListener('focusout', () => {
+      setTimeout(() => {
+        if (!nav.contains(document.activeElement) && !footerInView()) {
+          scheduleHide();
+        }
+      }, 0);
+    });
+  });
+  </script>
+    {%- include header.html -%}
+    <main class="page-content" aria-label="Contenuto">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
+    {%- include footer.html -%}
+  </body>
+</html>

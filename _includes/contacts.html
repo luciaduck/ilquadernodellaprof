@@ -1,0 +1,131 @@
+{% if classe == "melanzana"     %}{% assign titolo_colore = "var(--melanzana)" %}
+{% elsif classe == "notte"      %}{% assign titolo_colore = "var(--notte)" %}
+{% elsif classe == "lampone"    %}{% assign titolo_colore = "var(--lampone)" %}
+{% elsif classe == "fiordaliso" %}{% assign titolo_colore = "var(--fiordaliso)" %}
+{% elsif classe == "senape"     %}{% assign titolo_colore = "var(--senape)" %}
+{% else %}{% assign titolo_colore = "var(--green-dark)" %}
+{% endif %}
+
+<style>
+  .contact-inner {
+    background: color-mix(in srgb, {{ titolo_colore }} 12%, var(--ivory));
+    border-radius: 28px;
+    padding: 1rem 2rem 2rem 2rem;
+    border: 3px dashed {{ titolo_colore }};
+    max-width: 640px;
+    margin: 0.5rem auto 0.5rem;
+  }
+
+  .contact-inner h2 {
+    font-family: 'Righteous', sans-serif;
+    font-size: clamp(1.8rem,4vw,3rem);
+    color: {{ titolo_colore }};
+    text-align: center;
+    margin-bottom: .5rem;
+  }
+
+  .contact-inner > p {
+    margin-bottom: 2rem;
+    overflow-wrap: break-word;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+  .form-group label {
+    display: block;
+    font-size: .82rem;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: .4rem;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: .85rem 1.1rem;
+    border-radius: 12px;
+    border: 1.5px solid {{ titolo_colore }};
+    background: var(--ivory);
+    font-family: Nunito, serif;
+    font-size: .95rem;
+    color: var(--text-color);
+    outline: none;
+    transition: border-color .2s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: {{ titolo_colore }};
+  }
+  .form-group textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+  .btn-form {
+    width: 100%;
+    margin-top: .5rem;
+    padding: .75rem 1.6rem;
+    border-radius: 50px;
+    font-size: .9rem;
+    font-weight: 500;
+    background: {{ titolo_colore }};
+    color: var(--ivory);
+    border: none;
+    cursor: pointer;
+    transition: transform .2s;
+  }
+  .btn-form:hover {
+    transform: translateY(-2px);
+  }
+  .contact-inner a {
+    color: {{ titolo_colore }};
+  }
+  .arrivederci-credit {
+    font-size: .75rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: .4rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-form { transition: none; }
+    .btn-form:hover { transform: none; }
+  }
+</style>
+
+<!-- ══ CONTATTI ══ -->
+
+<noscript>
+  <section id="noscript">
+    <div class="contact-inner">
+      <p>Questo sito utilizza JavaScript. Sul tuo browser non è stato abilitato, pertanto non riuscirai a utilizzare il form contatti, né a vedere la mia email, che viene mostrata da uno script per proteggermi dallo spam.</p>
+      <p>Se sei un essere umano, puoi contattarmi scrivendo così la mia email: il mio nome e cognome chioc ciola il quaderno della prof punto i t, tutto piccolo e senza spazi.</p>
+    </div>
+  </section>
+</noscript>
+  <section id="contatti">
+    <div class="contact-inner">
+      <h2>scrivimi</h2>
+      <p>Se stai usando il cellulare, puoi scrivermi usando questo modulo. Quando toccherai il tasto &laquo;invia il messaggio&raquo; si aprirà l'app della tua email e dovrai premere la freccia in alto a destra per inviare.<br>
+        Se stai usando il computer è più comodo se mi scrivi direttamente dalla tua email. Il mio indirizzo è <a href="javascript:void(0)" class="mail-protected show-email">Abilita JavaScript per vederlo</a>.</p>
+
+      <form id="form-contatti">
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" required maxlength="80" autocomplete="name" placeholder="Il tuo nome" />
+        </div>
+        <div class="form-group">
+          <label for="messaggio">Messaggio</label>
+          <textarea id="messaggio" name="messaggio" required maxlength="1500" placeholder="Scrivi qui…"></textarea>
+        </div>
+
+        <button type="submit" class="btn-form">Invia il messaggio</button>
+
+        <p style="font-size:.8rem; margin-top:1rem;">
+          Se hai <strong>meno di 14 anni</strong> devi sempre chiedere il permesso di un adulto per scrivermi.<br>
+          Se sei <strong>genitore</strong> di un mio alunno, ti ricordo di usare questo contatto solo per le richieste che riguardano il sito o l'app. Per tutte le richieste formali è necessario usare la mail istituzionale o i canali ufficiali della scuola.<br>
+          Quando mi scrivi i tuoi dati sono trattati secondo <a href="/privacy"><strong>l'informativa sulla privacy</strong></a>.
+        </p>
+      </form>
+    </div>
+  </section>
