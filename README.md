@@ -34,7 +34,7 @@ doesn't really find that format to be as *portable* as it should! *(These kids a
 Success! About 40 kids could install my PWA on their devices and we had no more trouble finding
 the classes' materials. 
 
-**They found a way not to do their homework anyways, but this is why I love middle schoolers.**
+*They found a way not to do their homework anyways, but this is why I love middle schoolers.*
 
 ## Other cool sections I'm going to write next time I have time (stay tuned!)
 
