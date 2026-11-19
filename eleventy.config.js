@@ -138,8 +138,8 @@ module.exports = function (eleventyConfig) {
   const site = {
     title: "il Quaderno della Prof",
     description:
-      "Un quaderno pieno di appunti, materiali, papere e letture. App didattica della prof Lucia Capurri.",
-    version: "2.0.0",
+      "Un quaderno pieno di appunti, materiali, papere e letture. A cura di Lucia Capurri.",
+    version: "2.0.1",
     lang: "it",
     url: "https://ilquadernodellaprof.it",
     image: "assets/icons/og.png",

@@ -1,7 +1,7 @@
 // IMPORTANTE: CACHE_VERSION va cambiata a mano ogni volta che modifichi
 // questo file o uno degli asset elencati.
 
-const CACHE_VERSION = 'v4.4';
+const CACHE_VERSION = 'v4.5';
 const PRECACHE = `qua-precache-${CACHE_VERSION}`;
 const OFFLINE_URL = '/offline.html';
 
