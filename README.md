@@ -16,7 +16,7 @@ though it has some quirks and it is currently not very active.
 
 > TL;DR: I needed a way to share my teaching materials in a mobile friendly and kid aware format.
 
-Imagine a LA/SS 7th grade class. Well: two of them, actually. Now, I had a problem to solve to
+Imagine a 7th grade class. Well: two of them, actually. Now, I had a problem to solve to
 facilitate my pupils' learning journey. Again, two of them:
 
 1. making up for some old textbooks that were still used in my school, providing up to date material,
@@ -28,11 +28,14 @@ the effort to verify the sources and making the language so easy that every kid 
 
 The latter was the tricky one. The school I was working had a complicated relationship with a certain Workspace.
 Opening a classroom there was not going to be a solution, at least not an easy one. However, I could
-(and for some time I did) share with my pupils each material in pdf... just to realize how much **gen Alpha**
-doesn't really find that format to be as *portable* as it should! *(These kids and their smartphones, cough!)*
+(and for some time I did) share with my pupils each material in PDF... just to realize how much **Gen Alpha**
+doesn't really find that format to be as *portable* as it should! *(These kids and their smartphones... cough!)*
 
-Success! About 40 kids could install my PWA on their devices and we had no more trouble finding
-the classes' materials. 
+So I decided to write a bunch of JavaScript lines, a couple of CSS files and to build them with Jekyll.
+
+Eventually I ended up needing to revise the site, because my pupils had some accessibility needs and it became way too customized to stay happy on Jekyll. I took some time to translate the site to 11ty and to migrate it to Cloudflare first and statichost/Gcore later on.
+
+Success! About 40 kids could install my PWA on their devices and we had no more trouble finding class materials. 
 
 *They found a way not to do their homework anyways, but this is why I love middle schoolers.*
 
